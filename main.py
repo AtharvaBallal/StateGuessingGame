@@ -14,10 +14,11 @@ guessed_state = []
 while len(guessed_state) < 50:
 
     answer_state = screen.textinput(f"{len(guessed_state)}/50 States Correct", "What is the state name:").title()
-    missing_state = []
-    for state in all_state:
-        if state not in guessed_state:
-            missing_state.append(state)
+    missing_state = [state for state in all_state if state not in guessed_state]
+
+    # for state in all_state:
+    #     if state not in guessed_state:
+    #         missing_state.append(state)
 
     pandas.DataFrame(missing_state).to_csv("State to Learn.csv")
 
@@ -32,6 +33,5 @@ while len(guessed_state) < 50:
         state_data = data[data.state == answer_state]
         tuk.goto(int(state_data.x), int(state_data.y))
         tuk.write(answer_state)
-
 
 turtle.mainloop()
